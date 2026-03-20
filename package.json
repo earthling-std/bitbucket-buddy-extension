@@ -1,0 +1,14 @@
+{
+  "name": "bibucket-commit-message-extension",
+  "private": true,
+  "scripts": {
+    "test": "node --test test/*.test.cjs",
+    "dev": "node scripts/dev.cjs",
+    "chrome:zip": "node scripts/chrome-zip.cjs",
+    "chrome:upload": "node scripts/deploy-chrome-store.cjs",
+    "chrome:deploy": "npm run chrome:zip && npm run chrome:upload"
+  },
+  "devDependencies": {
+    "archiver": "^6.0.2"
+  }
+}
