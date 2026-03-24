@@ -1,6 +1,23 @@
-node_modules/
-dist/
-.env
+# See https://help.github.com/ignore-files/ for more about ignoring files.
+
+# dependencies
+/node_modules
+
+# testing
+/coverage
+
+# production
+/build
+/package
+
+# misc
+.DS_Store
 .env.local
-scripts/chrome-web-store.env
-*.zip
+.env.development.local
+.env.test.local
+.env.production.local
+.history
+*.log
+
+# secrets
+secrets.*.js
