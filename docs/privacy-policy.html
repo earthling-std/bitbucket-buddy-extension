@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Privacy Policy — Format Bitbucket commit message</title>
+    <meta
+      name="description"
+      content="Privacy policy for the Format Bitbucket commit message browser extension."
+    />
+    <style>
+      :root {
+        color-scheme: light dark;
+        --bg: #fafafa;
+        --fg: #1a1a1a;
+        --muted: #555;
+        --border: #e0e0e0;
+        --accent: #0052cc;
+      }
+      @media (prefers-color-scheme: dark) {
+        :root {
+          --bg: #0d1117;
+          --fg: #e6edf3;
+          --muted: #8b949e;
+          --border: #30363d;
+          --accent: #58a6ff;
+        }
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        font-family: system-ui, -apple-system, Segoe UI, Roboto, Ubuntu, Cantarell, sans-serif;
+        font-size: 1rem;
+        line-height: 1.6;
+        color: var(--fg);
+        background: var(--bg);
+      }
+      .wrap {
+        max-width: 42rem;
+        margin: 0 auto;
+        padding: 2rem 1.25rem 3rem;
+      }
+      h1 {
+        font-size: 1.75rem;
+        font-weight: 700;
+        line-height: 1.25;
+        margin: 0 0 0.5rem;
+      }
+      .meta {
+        color: var(--muted);
+        font-size: 0.9rem;
+        margin-bottom: 2rem;
+        padding-bottom: 1.5rem;
+        border-bottom: 1px solid var(--border);
+      }
+      h2 {
+        font-size: 1.15rem;
+        font-weight: 600;
+        margin: 2rem 0 0.75rem;
+      }
+      p,
+      ul {
+        margin: 0 0 1rem;
+      }
+      ul {
+        padding-left: 1.25rem;
+      }
+      li {
+        margin-bottom: 0.35rem;
+      }
+      a {
+        color: var(--accent);
+      }
+      a:focus-visible {
+        outline: 2px solid var(--accent);
+        outline-offset: 2px;
+      }
+      strong {
+        font-weight: 600;
+      }
+    </style>
+  </head>
+  <body>
+    <main class="wrap">
+      <h1>Privacy policy</h1>
+      <p class="meta">
+        <strong>Format Bitbucket commit message</strong> — browser extension<br />
+        Last updated: <time datetime="2026-03-25">25 March 2026</time>
+      </p>
+
+      <p>
+        This policy describes how the extension handles information. The extension is designed to
+        adjust the default merge commit message on Bitbucket pull request pages according to your
+        preferences. It does not sell your data and does not use advertising or analytics SDKs.
+      </p>
+
+      <h2>Data we process</h2>
+      <p>
+        The extension may read page content that is already visible in your browser on supported
+        Bitbucket URLs (for example, the merge dialog and its commit message field) so it can
+        rewrite the message text locally. That processing happens on your device.
+      </p>
+
+      <h2>Data we store</h2>
+      <p>
+        The extension stores <strong>only your settings</strong> (such as which merge strategies
+        are enabled and how commit messages should be formatted) using the browser’s
+        <strong>local storage</strong> API (<code>chrome.storage.local</code>). This data stays on
+        your device and is not transmitted to us or to third-party servers by the extension.
+      </p>
+
+      <h2>What we do not collect</h2>
+      <ul>
+        <li>We do not operate backend servers for this extension.</li>
+        <li>We do not collect account credentials, tokens, or passwords.</li>
+        <li>We do not track browsing history beyond what is needed to run on Bitbucket PR pages.</li>
+        <li>We do not sell personal information.</li>
+      </ul>
+
+      <h2>Third parties</h2>
+      <p>
+        When you use Bitbucket, Atlassian’s own terms and privacy practices apply to that service.
+        This policy covers only the extension.
+      </p>
+
+      <h2>Children</h2>
+      <p>
+        The extension is not directed at children under 13, and we do not knowingly collect
+        information from children.
+      </p>
+
+      <h2>Changes</h2>
+      <p>
+        We may update this policy when the extension changes. The “Last updated” date at the top
+        will reflect the latest revision.
+      </p>
+
+      <h2>Contact</h2>
+      <p>
+        For questions about this policy or the extension, contact the repository maintainer (for
+        example via the GitHub or Bitbucket project where you obtained the extension).
+      </p>
+    </main>
+  </body>
+</html>
