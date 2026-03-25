@@ -3,7 +3,8 @@ import pkg from './package.json'
 
 export default defineManifest({
   manifest_version: 3,
-  name: pkg.name,
+  name: 'Bitbucket: Format commit message',
+  description: 'Format the commit message for Bitbucket pull requests',
   version: pkg.version,
   icons: {
     48: 'public/logo.png',

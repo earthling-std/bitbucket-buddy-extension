@@ -1,5 +1,5 @@
 {
-  "name": "Format bitbucket commit message",
+  "name": "crx-bitbucket-commit-message",
   "type": "module",
   "version": "1.0.0",
   "private": true,
