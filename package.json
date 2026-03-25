@@ -1,10 +1,11 @@
 {
   "name": "bitbucket-commit-message",
   "type": "module",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "private": true,
   "scripts": {
     "dev": "vite",
+    "build": "npm run build:chrome && npm run build:firefox",
     "build:chrome": "tsc -b && TARGET_BROWSER=chrome vite build",
     "build:firefox": "tsc -b && cross-env TARGET_BROWSER=firefox vite build",
     "preview": "vite preview"
