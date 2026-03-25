@@ -1,3 +1,5 @@
+import type { DefaultCommitMessageMode } from './mergeFormatterSettings';
+
 const MERGED_FIRST_LINE =
   /^Merged in .+ \(pull request #(\d+)\)\s*$/;
 
@@ -10,13 +12,13 @@ const MERGED_FIRST_LINE =
  *
  * <body...>
  *
- * Becomes:
- *
- * <title> (pull request #N)
- *
- * <body...>
+ * `pr_title_and_details`: <title> (pull request #N) + body (bullets / commit list).
+ * `pr_title_only`: single line <title> (pull request #N) — no commit details below.
  */
-export function transformBitbucketMergeCommitMessage(text: string): string | null {
+export function transformBitbucketMergeCommitMessage(
+  text: string,
+  lineFormat?: Exclude<DefaultCommitMessageMode, 'bitbucket_default'>,
+): string | null {
   const normalized = text.replace(/\r\n/g, '\n');
   const lines = normalized.split('\n');
   const firstLine = (lines[0] ?? '').trimEnd();
@@ -32,7 +34,14 @@ export function transformBitbucketMergeCommitMessage(text: string): string | nul
   const rest = lines.slice(i + 1);
   const body = rest.join('\n');
 
+  const format = lineFormat ?? 'pr_title_and_details';
+
   const head = `${title} (pull request #${prNum})`;
+
+  if (format === 'pr_title_only') {
+    return head;
+  }
+
   if (body.length === 0) return head;
   return `${head}\n${body}`;
 }
