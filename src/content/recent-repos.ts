@@ -1,8 +1,12 @@
 import { recordRecentRepo } from '@/lib/recentRepos';
 
+// Bitbucket reserved second-path segments that are workspace/account pages, not repos.
+const NON_REPO_SLUGS = new Set(['workspace', 'projects', 'account', 'dashboard', 'profile']);
+
 function extractRepo(pathname: string): { workspace: string; slug: string } | null {
   const parts = pathname.split('/').filter(Boolean);
   if (parts.length < 2) return null;
+  if (NON_REPO_SLUGS.has(parts[1])) return null;
   return { workspace: parts[0], slug: parts[1] };
 }
 
