@@ -1,3 +1,5 @@
+import '@/components/Settings.css';
+import { clearRecentRepos } from '@/lib/recentRepos';
 import {
   COMMIT_MESSAGE_OPTIONS,
   DEFAULT_MERGE_FORMATTER_SETTINGS,
@@ -6,12 +8,11 @@ import {
   type DefaultCommitMessageMode,
   type MergeFormatterSettings,
 } from '@/lib/mergeFormatterSettings';
-import '@/components/Settings.css';
 
 function appendCheckboxRow(
   ul: HTMLUListElement,
   getSettings: () => MergeFormatterSettings,
-  key: 'mergeCommits' | 'squashCommits' | 'rebaseCommits' | 'shortPrReference',
+  key: 'mergeCommits' | 'squashCommits' | 'rebaseCommits' | 'shortPrReference' | 'closeSourceBranch',
   title: string,
   hint: string,
   persist: (next: MergeFormatterSettings) => void,
@@ -43,6 +44,47 @@ function appendCheckboxRow(
   ul.appendChild(li);
 }
 
+export function buildHeader(): HTMLElement {
+  const header = document.createElement('header');
+  header.className = 'popup-header';
+
+  const title = document.createElement('span');
+  title.className = 'popup-header-title';
+  title.textContent = 'Bitbucket Buddy';
+  header.appendChild(title);
+
+  const actions = document.createElement('div');
+  actions.className = 'popup-header-actions';
+
+  const trashBtn = document.createElement('button');
+  trashBtn.className = 'popup-icon-btn';
+  trashBtn.title = 'Clear history';
+  trashBtn.setAttribute('aria-label', 'Clear history');
+  trashBtn.innerHTML =
+    '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M4 7l16 0" /><path d="M10 11l0 6" /><path d="M14 11l0 6" /><path d="M5 7l1 12a2 2 0 0 0 2 2h8a2 2 0 0 0 2 -2l1 -12" /><path d="M9 7v-3a1 1 0 0 1 1 -1h4a1 1 0 0 1 1 1v3" /></svg>';
+  trashBtn.addEventListener('click', () => {
+    void clearRecentRepos().then(() => window.location.reload());
+  });
+
+  const settingsBtn = document.createElement('button');
+  settingsBtn.className = 'popup-icon-btn';
+  settingsBtn.title = 'Settings';
+  settingsBtn.setAttribute('aria-label', 'Settings');
+  settingsBtn.innerHTML =
+    '<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path stroke="none" d="M0 0h24v24H0z" fill="none"/><path d="M10.325 4.317c.426 -1.756 2.924 -1.756 3.35 0a1.724 1.724 0 0 0 2.573 1.066c1.543 -.94 3.31 .826 2.37 2.37a1.724 1.724 0 0 0 1.065 2.572c1.756 .426 1.756 2.924 0 3.35a1.724 1.724 0 0 0 -1.066 2.573c.94 1.543 -.826 3.31 -2.37 2.37a1.724 1.724 0 0 0 -2.572 1.065c-.426 1.756 -2.924 1.756 -3.35 0a1.724 1.724 0 0 0 -2.573 -1.066c-1.543 .94 -3.31 -.826 -2.37 -2.37a1.724 1.724 0 0 0 -1.065 -2.572c-1.756 -.426 -1.756 -2.924 0 -3.35a1.724 1.724 0 0 0 1.066 -2.573c-.94 -1.543 .826 -3.31 2.37 -2.37c1 .608 2.296 .07 2.572 -1.065z" /><path d="M9 12a3 3 0 1 0 6 0a3 3 0 0 0 -6 0" /></svg>';
+  settingsBtn.addEventListener('click', () => {
+    if (typeof chrome !== 'undefined' && chrome.runtime?.openOptionsPage) {
+      void chrome.runtime.openOptionsPage();
+    }
+  });
+
+  actions.appendChild(trashBtn);
+  actions.appendChild(settingsBtn);
+  header.appendChild(actions);
+
+  return header;
+}
+
 /** Vanilla settings UI (no React; avoids innerHTML in extension bundles for AMO). */
 export function mountSettingsUi(root: HTMLElement): void {
   const loading = document.createElement('p');
@@ -64,10 +106,14 @@ export function mountSettingsUi(root: HTMLElement): void {
     const shell = document.createElement('div');
     shell.className = 'settings-root';
 
+    const surface = document.createElement('div');
+    surface.className = 'settings-surface';
+    shell.appendChild(surface);
+
     const h1 = document.createElement('h1');
     h1.className = 'settings-page-title';
-    h1.textContent = 'Merge message formatter';
-    shell.appendChild(h1);
+    h1.textContent = 'Pull Request';
+    surface.appendChild(h1);
 
     const sec1 = document.createElement('section');
     sec1.className = 'settings-section';
@@ -82,7 +128,7 @@ export function mountSettingsUi(root: HTMLElement): void {
     const pa = document.createElement('p');
     pa.className = 'settings-section-desc';
     pa.textContent =
-      'Enable the formatter only for the strategies you use. Bitbucket must show that strategy in the merge dialog.';
+      'Enable message formatter only for the strategies you use. Bitbucket must show that strategy in the merge dialog.';
     sec1.appendChild(pa);
 
     const ul = document.createElement('ul');
@@ -105,7 +151,7 @@ export function mountSettingsUi(root: HTMLElement): void {
       persist,
     );
     sec1.appendChild(ul);
-    shell.appendChild(sec1);
+    surface.appendChild(sec1);
 
     const sec2 = document.createElement('section');
     sec2.className = 'settings-section';
@@ -157,7 +203,30 @@ export function mountSettingsUi(root: HTMLElement): void {
     );
     sec2.appendChild(ulPrRef);
 
-    shell.appendChild(sec2);
+    surface.appendChild(sec2);
+
+    const sec3 = document.createElement('section');
+    sec3.className = 'settings-section';
+    sec3.setAttribute('aria-labelledby', 'source-branch-heading');
+
+    const h2c = document.createElement('h2');
+    h2c.id = 'source-branch-heading';
+    h2c.className = 'settings-section-title';
+    h2c.textContent = 'Delete branch';
+    sec3.appendChild(h2c);
+
+    const ulBranch = document.createElement('ul');
+    ulBranch.className = 'settings-list';
+    appendCheckboxRow(
+      ulBranch,
+      getSettings,
+      'closeSourceBranch',
+      'Delete branch after the pull request is merged',
+      'Automatically tick "Close source branch" in the merge dialog.',
+      persist,
+    );
+    sec3.appendChild(ulBranch);
+    surface.appendChild(sec3);
 
     root.appendChild(shell);
   });

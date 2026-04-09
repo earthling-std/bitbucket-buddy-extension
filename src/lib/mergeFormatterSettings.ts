@@ -16,6 +16,8 @@ export type MergeFormatterSettings = {
   commitMessage: DefaultCommitMessageMode;
   /** When true, formatted line uses `(PR #N)` instead of `(pull request #N)`. */
   shortPrReference: boolean;
+  /** When true, automatically ticks the "Close source branch" checkbox in the merge dialog. */
+  closeSourceBranch: boolean;
 };
 
 /**
@@ -28,6 +30,7 @@ export const DEFAULT_MERGE_FORMATTER_SETTINGS: MergeFormatterSettings = {
   rebaseCommits: true,
   commitMessage: 'pr_title_and_details',
   shortPrReference: true,
+  closeSourceBranch: true,
 };
 
 const VALID_MODES: DefaultCommitMessageMode[] = [
@@ -54,6 +57,9 @@ export function parseMergeFormatterSettings(raw: unknown): MergeFormatterSetting
   }
   if (typeof o.shortPrReference === 'boolean') {
     base.shortPrReference = o.shortPrReference;
+  }
+  if (typeof o.closeSourceBranch === 'boolean') {
+    base.closeSourceBranch = o.closeSourceBranch;
   }
   // Missing or invalid `commitMessage` keeps `base.commitMessage` === `pr_title_and_details`.
 

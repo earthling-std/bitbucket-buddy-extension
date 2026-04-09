@@ -39,6 +39,10 @@ export const manifestConfig = {
     },
     default_popup: 'src/popup/index.html',
   },
+  options_ui: {
+    page: 'src/settings/index.html',
+    open_in_tab: true,
+  },
   permissions: ['storage'],
   content_scripts: [
     {

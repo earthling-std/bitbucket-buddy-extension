@@ -1,6 +1,64 @@
+.popup-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background-color: #94c749;
+  padding: 0.6rem 1rem;
+  gap: 0.5rem;
+}
+
+.popup-header-title {
+  color: #fff;
+  font-size: 0.95rem;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  white-space: nowrap;
+}
+
+.popup-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  flex-shrink: 0;
+}
+
+.popup-icon-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  border: none;
+  border-radius: 6px;
+  background: transparent;
+  color: #fff;
+  cursor: pointer;
+  opacity: 0.85;
+  transition: background-color 0.15s, opacity 0.15s;
+}
+
+.popup-icon-btn:hover {
+  background-color: rgba(255, 255, 255, 0.18);
+  opacity: 1;
+  border-color: transparent;
+}
+
+.popup-icon-btn:focus-visible {
+  outline: 2px solid rgba(255, 255, 255, 0.7);
+  outline-offset: 1px;
+}
+
 .settings-root {
   text-align: left;
-  max-width: 26rem;
+  max-width: 31.2rem;
+}
+
+.settings-surface {
+  border: 1px solid rgba(127, 127, 127, 0.2);
+  border-radius: 10px;
+  padding: 1.25rem 1.25rem 1rem;
+  background-color: rgba(127, 127, 127, 0.06);
 }
 
 .settings-loading {

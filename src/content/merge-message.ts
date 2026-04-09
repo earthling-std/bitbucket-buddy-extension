@@ -52,6 +52,29 @@ async function refreshSettingsFromStorage(): Promise<void> {
 }
 
 const replacedToastSent = new WeakSet<HTMLTextAreaElement>();
+const closeSourceBranchProcessed = new WeakSet<Element>();
+
+function tryTickCloseSourceBranch(dialog: Element): void {
+  if (!cachedSettings.closeSourceBranch) return;
+  if (closeSourceBranchProcessed.has(dialog)) return;
+
+  let checkbox: HTMLInputElement | null = null;
+  for (const label of dialog.querySelectorAll<HTMLLabelElement>('label')) {
+    if (!label.textContent?.includes('Close source branch')) continue;
+    const forId = label.getAttribute('for');
+    if (forId) {
+      checkbox = dialog.querySelector<HTMLInputElement>(`#${CSS.escape(forId)}`);
+    }
+    if (!checkbox) {
+      checkbox = label.querySelector<HTMLInputElement>('input[type="checkbox"]');
+    }
+    break;
+  }
+
+  if (!checkbox) return; // not rendered yet — retry on next tick
+  closeSourceBranchProcessed.add(dialog);
+  if (!checkbox.checked) checkbox.click();
+}
 
 function tryTransformMergeMessage(textarea: HTMLTextAreaElement): void {
   const dialog = findMergeDialogForTextarea(textarea);
@@ -103,6 +126,8 @@ function tick(): void {
     return;
   }
   tryTransformMergeMessage(ta);
+  const dialog = findMergeDialogForTextarea(ta);
+  if (dialog) tryTickCloseSourceBranch(dialog);
 }
 
 function startPollingIfNeeded(): void {

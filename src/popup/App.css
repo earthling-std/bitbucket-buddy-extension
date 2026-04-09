@@ -2,3 +2,76 @@
   padding: 0;
   text-align: left;
 }
+
+.popup-repos {
+  padding: 0.35rem 0;
+}
+
+.popup-repo-item {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.55rem 1rem;
+  width: 100%;
+  border: none;
+  border-radius: 0;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+}
+
+.popup-repo-item:hover {
+  background-color: rgba(127, 127, 127, 0.12);
+  border-color: transparent;
+}
+
+.popup-repo-icon {
+  flex-shrink: 0;
+  opacity: 0.55;
+  display: flex;
+}
+
+.popup-repo-info {
+  display: flex;
+  flex-direction: column;
+  gap: 0.1rem;
+  min-width: 0;
+}
+
+.popup-repo-name {
+  font-size: 0.875rem;
+  font-weight: 600;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.popup-repo-subtitle {
+  font-size: 0.72rem;
+  opacity: 0.55;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.popup-empty-state {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 1.75rem 1rem 1.5rem;
+  text-align: center;
+  opacity: 0.5;
+}
+
+.popup-empty-icon {
+  display: flex;
+}
+
+.popup-empty-text {
+  margin: 0;
+  font-size: 0.82rem;
+  line-height: 1.5;
+}
