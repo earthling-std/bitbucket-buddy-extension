@@ -1,4 +1,4 @@
-import '@/components/Settings.css';
+import './mountSettingsUi.css';
 import { clearRecentRepos } from '@/lib/recentRepos';
 import {
   COMMIT_MESSAGE_OPTIONS,

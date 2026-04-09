@@ -1,20 +1,79 @@
 .popup-app {
-  padding: 0;
+  padding: 24px;
   text-align: left;
 }
 
+.popup-tab-bar {
+  display: flex;
+  border-bottom: 1.5px solid rgba(127, 127, 127, 0.2);
+  padding: 0 0;
+  margin-bottom: 12px;
+  gap: 16px;
+}
+
+.popup-tab {
+  position: relative;
+  padding: 0.55rem 0;
+  border: none;
+  border-radius: 0;
+  outline: none;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  font-size: 0.875rem;
+  font-weight: 500;
+  opacity: 0.55;
+  cursor: pointer;
+  transition: opacity 0.15s;
+}
+
+.popup-tab:focus {
+  outline: none;
+}
+
+.popup-tab::after {
+  content: '';
+  position: absolute;
+  bottom: -1.5px;
+  left: 0;
+  right: 0;
+  height: 2px;
+  border-radius: 2px 2px 0 0;
+  background-color: #83b537;
+  opacity: 0;
+  transition: opacity 0.15s;
+}
+
+.popup-tab--active {
+  opacity: 1;
+  font-weight: 700;
+}
+
+.popup-tab--active::after {
+  opacity: 1;
+}
+
+.popup-tab:hover:not(.popup-tab--active) {
+  opacity: 0.8;
+  border-color: transparent;
+}
+
+.popup-tab-panel {
+  min-height: 140px;
+}
+
 .popup-repos {
-  padding: 0.35rem 0;
+  padding: 0 0;
 }
 
 .popup-repo-item {
   display: flex;
   align-items: center;
-  gap: 0.75rem;
+  gap: 0.6rem;
   padding: 0.55rem 1rem;
   width: 100%;
   border: none;
-  border-radius: 0;
+  border-radius: 12px;
   background: transparent;
   color: inherit;
   font: inherit;
@@ -36,12 +95,11 @@
 .popup-repo-info {
   display: flex;
   flex-direction: column;
-  gap: 0.1rem;
   min-width: 0;
 }
 
 .popup-repo-name {
-  font-size: 0.875rem;
+  font-size: 16px;
   font-weight: 600;
   white-space: nowrap;
   overflow: hidden;
@@ -49,7 +107,7 @@
 }
 
 .popup-repo-subtitle {
-  font-size: 0.72rem;
+  font-size: 13px;
   opacity: 0.55;
   white-space: nowrap;
   overflow: hidden;
